@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Management Portal — Gordon College</title>
+    <title>Student Management Portal — Gordon College | Home</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,7 +36,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <span class="brand">🎓 GC Student Portal</span>
+        <span class="brand">🎓 Student Portal</span>
         <div class="nav-links">
             <a href="{{ route('login') }}" class="btn btn-outline">Login</a>
             <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="hero-image">
-            <img src="{{ asset('images/hero.jpg') }}" alt="Students at Gordon College" />
+            <img src="{{ asset('images/hero.png') }}" alt="Students at Gordon College" onerror="this.style.display='none'" />
         </div>
     </section>
 
