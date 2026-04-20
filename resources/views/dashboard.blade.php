@@ -4,10 +4,6 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Student Enrollment Records
             </h2>
-            <button @click="showLogout = true"
-                class="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition">
-                Logout
-            </button>
         </div>
     </x-slot>
 
@@ -20,7 +16,8 @@
             openEdit(e) { this.selected = {...e}; this.showEdit = true; },
             openDelete(e) { this.selected = {...e}; this.showDelete = true; }
         }"
-        @logout.window="showLogout = false">
+        @logout.window="showLogout = false"
+        @open-logout.window="showLogout = true">
 
         @if (session('success'))
             <div class="mb-4 p-4 bg-green-100 text-green-800 rounded-lg">
@@ -293,25 +290,48 @@
         </div>
 
         {{-- LOGOUT MODAL --}}
-        <div x-show="showLogout" x-transition style="display:none"
-            class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
-                <div class="bg-gradient-to-r from-orange-600 to-orange-700 px-6 py-4">
+        <div x-show="showLogout"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+            style="display:none"
+            class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            @keydown.escape.window="showLogout = false">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+                {{-- Modal Header --}}
+                <div class="bg-gradient-to-r from-green-600 to-green-700 px-6 py-5 flex items-center gap-3">
+                    <div class="flex-shrink-0 bg-white/20 rounded-full p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+                        </svg>
+                    </div>
                     <h3 class="text-lg font-bold text-white">Confirm Logout</h3>
                 </div>
+                {{-- Modal Body --}}
                 <div class="p-6">
-                    <p class="text-sm text-gray-700 mb-6">
-                        Are you sure you want to logout? Your session will be ended.
+                    <p class="text-base text-gray-700 mb-1 font-medium">
+                        Are you sure you want to logout?
                     </p>
+                    <p class="text-sm text-gray-500 mb-6">Your current session will be ended.</p>
                     <div class="flex justify-end gap-3">
-                        <button type="button" @click="showLogout=false"
-                            class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-400 transition">
-                            Cancel</button>
+                        <button
+                            id="logout-modal-cancel"
+                            type="button"
+                            @click="showLogout = false"
+                            class="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 border border-gray-300 transition duration-150">
+                            Cancel
+                        </button>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
-                            <button type="submit"
-                                class="px-6 py-2 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition shadow">
-                                Yes, Logout</button>
+                            <button
+                                id="logout-modal-confirm"
+                                type="submit"
+                                class="px-6 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-semibold hover:from-green-700 hover:to-green-800 shadow-md transition duration-150 active:scale-95">
+                                Yes, Logout
+                            </button>
                         </form>
                     </div>
                 </div>
