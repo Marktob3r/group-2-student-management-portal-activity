@@ -9,8 +9,9 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; color: #1A5C2A; }
-        .navbar { background-color: #1A5C2A; padding: 14px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .navbar .brand { color: #fff; font-size: 20px; font-weight: bold; }
+        .navbar { background-color: #1A5C2A; padding: 10px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .navbar .brand { color: #fff; font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        .navbar .brand img { height: 40px; width: auto; }
         .navbar .nav-links { display: flex; gap: 12px; }
         .btn { padding: 10px 22px; border-radius: 6px; font-weight: bold; font-size: 14px; text-decoration: none; border: none; cursor: pointer; }
         .btn-outline { background: transparent; color: #fff; border: 2px solid #A8D5B5; }
@@ -36,7 +37,10 @@
 </head>
 <body>
     <nav class="navbar">
-        <span class="brand">🎓 Student Portal</span>
+        <div class="brand">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo">
+            <span>Student Portal</span>
+        </div>
         <div class="nav-links">
             <a href="{{ route('login') }}" class="btn btn-outline">Login</a>
             <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
