@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('enrollees', function (Blueprint $table) {
+        Schema::create('laravel_enrollees', function (Blueprint $table) {
             $table->id();
+            $table->string('student_id', 6)->unique();
+            $table->string('name', 100);
+            $table->string('course', 20);
+            $table->unsignedTinyInteger('year');
+            $table->string('block', 5);
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('enrollees');
+        Schema::dropIfExists('laravel_enrollees');
     }
 };

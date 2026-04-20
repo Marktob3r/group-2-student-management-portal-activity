@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEnrolleeRequest extends FormRequest
+class UpdateEnrolleeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,6 @@ class StoreEnrolleeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'student_id' => 'required|digits:6|unique:laravel_enrollees,student_id',
             'name' => 'required|regex:/^[a-zA-Z\s]+$/|max:100',
             'course' => 'required|in:BSIT,BSCS,BSCS-EMC DAT,BSEMC-GD',
             'year' => 'required|integer|between:1,4',
@@ -34,8 +33,6 @@ class StoreEnrolleeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'student_id.digits' => 'Student ID must be exactly 6 digits.',
-            'student_id.unique' => 'This Student ID is already registered.',
             'name.regex' => 'Name must contain letters only — no numbers.',
             'course.in' => 'Please select a valid course.',
             'year.between' => 'Year level must be between 1 and 4.',
